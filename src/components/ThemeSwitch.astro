@@ -1,0 +1,24 @@
+<!-- src/components/ThemeSwitch.astro -->
+<button class="btn" id="theme-toggle">Toggle Theme</button>
+
+<script is:inline>
+    const themeToggle = document.getElementById("theme-toggle");
+    const htmlElement = document.documentElement;
+
+    // Initialize theme from localStorage or system preference
+    const currentTheme =
+        localStorage.getItem("theme") ||
+        (window.matchMedia("(prefers-color-scheme: dark)").matches
+            ? "dark"
+            : "light");
+    htmlElement.setAttribute("data-theme", currentTheme);
+
+    themeToggle.addEventListener("click", () => {
+        const newTheme =
+            htmlElement.getAttribute("data-theme") === "dark"
+                ? "light"
+                : "dark";
+        htmlElement.setAttribute("data-theme", newTheme);
+        localStorage.setItem("theme", newTheme);
+    });
+</script>
